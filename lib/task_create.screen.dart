@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TaskDetailScreen extends StatefulWidget {
-  const TaskDetailScreen({super.key});
+class TaskCreateScreen extends StatefulWidget {
+  const TaskCreateScreen({super.key});
 
   @override
-  State<TaskDetailScreen> createState() => _TaskDetailScreenState();
+  State<TaskCreateScreen> createState() => _TaskCreateScreenState();
 }
 
-class _TaskDetailScreenState extends State<TaskDetailScreen> {
+class _TaskCreateScreenState extends State<TaskCreateScreen> {
   late final theme = Theme.of(context);
 
   @override
@@ -16,8 +16,8 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () => print('Delete task'),
-            icon: const Icon(Icons.delete_outline),
+            onPressed: () => print('Create task'),
+            icon: const Icon(Icons.check),
           ),
         ],
       ),
@@ -29,27 +29,19 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
               child: ListView(
                 children: [
                   TextFormField(
-                    readOnly: true,
                     initialValue: 'Task 1',
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Name',
                       hintText: 'Enter task name',
-                      suffix: IconButton(
-                        onPressed: () => print('Edit task'),
-                        icon: const Icon(Icons.edit_outlined),
-                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
                   TextFormField(
                     readOnly: true,
                     initialValue: 'Everyday at 10:00',
-                    decoration: InputDecoration(
+                    onTap: () => print('Open Dialog'),
+                    decoration: const InputDecoration(
                       labelText: 'Reminder',
-                      suffix: IconButton(
-                        onPressed: () => print('Edit task'),
-                        icon: const Icon(Icons.edit_outlined),
-                      ),
                     ),
                   ),
                 ],
