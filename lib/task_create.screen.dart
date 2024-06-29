@@ -38,10 +38,66 @@ class _TaskCreateScreenState extends State<TaskCreateScreen> {
                   const SizedBox(height: 30),
                   TextFormField(
                     readOnly: true,
-                    initialValue: 'Everyday at 10:00',
-                    onTap: () => print('Open Dialog'),
+                    initialValue: '10:00 AM',
+                    onTap: () => showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                      initialEntryMode: TimePickerEntryMode.input,
+                    ),
                     decoration: const InputDecoration(
-                      labelText: 'Reminder',
+                      labelText: 'Reminder Time',
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  TextFormField(
+                    readOnly: true,
+                    initialValue: '2024/06/29',
+                    onTap: () => showDatePicker(
+                      context: context,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now(),
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: 'On Specific Day',
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  TextFormField(
+                    readOnly: true,
+                    initialValue: 'Everyday',
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: [
+                              CheckboxListTile(
+                                value: true,
+                                onChanged: (_) {},
+                                title: const Text('Everyday'),
+                              ),
+                              CheckboxListTile(
+                                value: true,
+                                onChanged: (_) {},
+                                title: const Text('Mon'),
+                              ),
+                              CheckboxListTile(
+                                value: true,
+                                onChanged: (_) {},
+                                title: const Text('Tues'),
+                              ),
+                              CheckboxListTile(
+                                value: true,
+                                onChanged: (_) {},
+                                title: const Text('Wed'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    decoration: const InputDecoration(
+                      labelText: 'Repeated Days',
                     ),
                   ),
                 ],
