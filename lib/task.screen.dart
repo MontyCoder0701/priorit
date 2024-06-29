@@ -8,8 +8,42 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
+  late final theme = Theme.of(context);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView.separated(
+                itemBuilder: (BuildContext context, int index) => Card.outlined(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 12.0,
+                    ),
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Task ${index + 1}',
+                            style: theme.textTheme.titleMedium),
+                        const Text('Reminder at 10:00'),
+                      ],
+                    ),
+                  ),
+                ),
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox(height: 10),
+                itemCount: 10,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
