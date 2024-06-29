@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'task_detail.screen.dart';
+
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
 
@@ -20,19 +22,30 @@ class _TaskScreenState extends State<TaskScreen> {
             Expanded(
               child: ListView.separated(
                 itemBuilder: (BuildContext context, int index) => Card.outlined(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 12.0,
-                    ),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Task ${index + 1}',
-                            style: theme.textTheme.titleMedium),
-                        const Text('Reminder at 10:00'),
-                      ],
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TaskDetailScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12.0,
+                      ),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Task ${index + 1}',
+                              style: theme.textTheme.titleMedium),
+                          const Text('Reminder at 10:00'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -43,6 +56,10 @@ class _TaskScreenState extends State<TaskScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }
