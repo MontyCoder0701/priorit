@@ -9,6 +9,7 @@ class TaskDetailScreen extends StatefulWidget {
 
 class _TaskDetailScreenState extends State<TaskDetailScreen> {
   late final theme = Theme.of(context);
+  late bool isRepeated = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,76 +42,74 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  TextFormField(
-                    readOnly: true,
-                    initialValue: '10:00 AM',
-                    decoration: InputDecoration(
-                      labelText: 'Reminder Time',
-                      suffix: IconButton(
-                        onPressed: () => showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                          initialEntryMode: TimePickerEntryMode.input,
+                  CheckboxListTile(
+                    contentPadding: EdgeInsets.zero,
+                    value: isRepeated,
+                    title: const Text('Repeated?'),
+                    onChanged: (bool? value) {
+                      setState(() => isRepeated = value!);
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  Visibility(
+                    visible: !isRepeated,
+                    child: TextFormField(
+                      readOnly: true,
+                      initialValue: '2024/06/29',
+                      decoration: InputDecoration(
+                        labelText: 'On Specific Day',
+                        suffix: IconButton(
+                          onPressed: () => showDatePicker(
+                            context: context,
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime.now(),
+                          ),
+                          icon: const Icon(Icons.edit_outlined),
                         ),
-                        icon: const Icon(Icons.edit_outlined),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  TextFormField(
-                    readOnly: true,
-                    initialValue: '2024/06/29',
-                    decoration: InputDecoration(
-                      labelText: 'On Specific Day',
-                      suffix: IconButton(
-                        onPressed: () => showDatePicker(
-                          context: context,
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now(),
-                        ),
-                        icon: const Icon(Icons.edit_outlined),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  TextFormField(
-                    readOnly: true,
-                    initialValue: 'Everyday',
-                    decoration: InputDecoration(
-                      labelText: 'Repeated Days',
-                      suffix: IconButton(
-                        onPressed: () => showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            content: SingleChildScrollView(
-                              child: ListBody(
-                                children: [
-                                  CheckboxListTile(
-                                    value: true,
-                                    onChanged: (_) {},
-                                    title: const Text('Everyday'),
-                                  ),
-                                  CheckboxListTile(
-                                    value: true,
-                                    onChanged: (_) {},
-                                    title: const Text('Mon'),
-                                  ),
-                                  CheckboxListTile(
-                                    value: true,
-                                    onChanged: (_) {},
-                                    title: const Text('Tues'),
-                                  ),
-                                  CheckboxListTile(
-                                    value: true,
-                                    onChanged: (_) {},
-                                    title: const Text('Wed'),
-                                  ),
-                                ],
+                  Visibility(
+                    visible: isRepeated,
+                    child: TextFormField(
+                      readOnly: true,
+                      initialValue: 'Everyday',
+                      decoration: InputDecoration(
+                        labelText: 'Repeated Days',
+                        suffix: IconButton(
+                          onPressed: () => showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: [
+                                    CheckboxListTile(
+                                      value: true,
+                                      onChanged: (_) {},
+                                      title: const Text('Everyday'),
+                                    ),
+                                    CheckboxListTile(
+                                      value: true,
+                                      onChanged: (_) {},
+                                      title: const Text('Mon'),
+                                    ),
+                                    CheckboxListTile(
+                                      value: true,
+                                      onChanged: (_) {},
+                                      title: const Text('Tues'),
+                                    ),
+                                    CheckboxListTile(
+                                      value: true,
+                                      onChanged: (_) {},
+                                      title: const Text('Wed'),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
+                          icon: const Icon(Icons.edit_outlined),
                         ),
-                        icon: const Icon(Icons.edit_outlined),
                       ),
                     ),
                   ),

@@ -9,7 +9,7 @@ class TaskCreateScreen extends StatefulWidget {
 
 class _TaskCreateScreenState extends State<TaskCreateScreen> {
   late final theme = Theme.of(context);
-  late bool isRepeated = false;
+  late bool isRepeated = true;
 
   @override
   Widget build(BuildContext context) {
