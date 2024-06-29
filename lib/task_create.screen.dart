@@ -9,6 +9,7 @@ class TaskCreateScreen extends StatefulWidget {
 
 class _TaskCreateScreenState extends State<TaskCreateScreen> {
   late final theme = Theme.of(context);
+  late bool isRepeated = false;
 
   @override
   Widget build(BuildContext context) {
@@ -49,55 +50,69 @@ class _TaskCreateScreenState extends State<TaskCreateScreen> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  TextFormField(
-                    readOnly: true,
-                    initialValue: '2024/06/29',
-                    onTap: () => showDatePicker(
-                      context: context,
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime.now(),
-                    ),
-                    decoration: const InputDecoration(
-                      labelText: 'On Specific Day',
-                    ),
+                  CheckboxListTile(
+                    contentPadding: EdgeInsets.zero,
+                    value: isRepeated,
+                    title: const Text('Repeated?'),
+                    onChanged: (bool? value) {
+                      setState(() => isRepeated = value!);
+                    },
                   ),
                   const SizedBox(height: 30),
-                  TextFormField(
-                    readOnly: true,
-                    initialValue: 'Everyday',
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: [
-                              CheckboxListTile(
-                                value: true,
-                                onChanged: (_) {},
-                                title: const Text('Everyday'),
-                              ),
-                              CheckboxListTile(
-                                value: true,
-                                onChanged: (_) {},
-                                title: const Text('Mon'),
-                              ),
-                              CheckboxListTile(
-                                value: true,
-                                onChanged: (_) {},
-                                title: const Text('Tues'),
-                              ),
-                              CheckboxListTile(
-                                value: true,
-                                onChanged: (_) {},
-                                title: const Text('Wed'),
-                              ),
-                            ],
+                  Visibility(
+                    visible: !isRepeated,
+                    child: TextFormField(
+                      readOnly: true,
+                      initialValue: '2024/06/29',
+                      onTap: () => showDatePicker(
+                        context: context,
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now(),
+                      ),
+                      decoration: const InputDecoration(
+                        labelText: 'On Specific Day',
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: isRepeated,
+                    child: TextFormField(
+                      readOnly: true,
+                      initialValue: 'Everyday',
+                      onTap: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: [
+                                CheckboxListTile(
+                                  value: true,
+                                  onChanged: (_) {},
+                                  title: const Text('Everyday'),
+                                ),
+                                CheckboxListTile(
+                                  value: true,
+                                  onChanged: (_) {},
+                                  title: const Text('Mon'),
+                                ),
+                                CheckboxListTile(
+                                  value: true,
+                                  onChanged: (_) {},
+                                  title: const Text('Tues'),
+                                ),
+                                CheckboxListTile(
+                                  value: true,
+                                  onChanged: (_) {},
+                                  title: const Text('Wed'),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    decoration: const InputDecoration(
-                      labelText: 'Repeated Days',
+                      decoration: const InputDecoration(
+                        labelText: 'Repeated Days',
+                      ),
                     ),
                   ),
                 ],
